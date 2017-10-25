@@ -4,15 +4,23 @@ import { Field, reduxForm } from 'redux-form';
 class PostNew extends Component {
 
     renderField = ( field ) => {
+        // disctructuring to pull off the properties touched and air from the meta obj
+        const {meta: {touched, error}} = field;
+
+        const className = `form-group ${touched && error ? 'has-danger' : ''}`;
+
         return (
-            <div className="form-group">
+            <div className={className}>
                 <label>{field.label}</label>
                 <input
                     className="form-control"
                     type="text"
                     {...field.input}
                 />
-                {field.meta.error}
+                <div className="text-help">
+                    {/*if user touched field then show the error otherwise show empty string*/}
+                    {touched ? error : ''}
+                </div>
             </div>
         )
     };

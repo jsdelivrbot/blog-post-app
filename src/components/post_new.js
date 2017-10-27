@@ -29,8 +29,11 @@ class PostNew extends Component {
     };
 
     onSubmit = ( values ) => {
-        // console.log(values);
-        this.props.createPost(values);
+        // callback delay + action/index
+        this.props.createPost(values, () => {
+            this.props.history.push('/');
+
+        });
     };
 
     render() {
@@ -65,14 +68,23 @@ function validate( values ) {
     const errors = {};
 
     //validate the values from 'values'
-    if ( !values.title || values.title.length < 3 ) {
-        errors.title = 'Enter a title that is at least 3 characters';
+    if ( !values.title || values.title.length < 3) {
+        errors.title = 'Enter a title that have at least 3 characters';
+    }
+    if ( values.title = ' ' ) {
+        errors.title = 'Enter value';
     }
     if ( !values.categories ) {
         errors.categories = 'Enter some categories';
     }
+    if ( values.categories = ' ' ) {
+        errors.categories = 'Enter value';
+    }
     if ( !values.content ) {
         errors.content = 'Enter some content';
+    }
+    if ( values.content = ' ' ) {
+        errors.content = 'Enter value';
     }
 
     //if there are no errors in entered values the errors obj is empty
